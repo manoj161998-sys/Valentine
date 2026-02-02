@@ -152,18 +152,22 @@
         noBtn.style.transform = `scale(${noScale})`;
     }
 
-    noBtn.addEventListener("mouseover", moveNoButton);
-    noBtn.addEventListener("click", moveNoButton);
+    /* 🖱️ Desktop support */
+    noBtn.addEventListener("mouseenter", moveNoButton);
+
+    /* 📱 Mobile support */
+    noBtn.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        moveNoButton();
+    });
 
     yesBtn.addEventListener("click", () => {
         startMusic();
 
-        // Hide question & buttons
         document.getElementById("question").style.display = "none";
         yesBtn.style.display = "none";
         noBtn?.remove();
 
-        // Stop hearts
         clearInterval(heartInterval);
 
         typeWriter("Your silly boy loves you ❤️");
